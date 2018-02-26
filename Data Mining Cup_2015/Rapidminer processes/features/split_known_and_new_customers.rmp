@@ -1,0 +1,796 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<process version="7.0.001">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="7.0.001" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" class="read_csv" compatibility="7.0.001" expanded="true" height="68" name="read train" width="90" x="45" y="34">
+        <parameter key="csv_file" value="/Users/ariera/Dropbox/ariera/UniMannheim/Data Mining II/FSS2016/99. Project/week3/dm2_train_sample_all_features.csv"/>
+        <parameter key="column_separators" value=";"/>
+        <parameter key="trim_lines" value="false"/>
+        <parameter key="use_quotes" value="true"/>
+        <parameter key="quotes_character" value="&quot;"/>
+        <parameter key="escape_character" value="\"/>
+        <parameter key="skip_comments" value="false"/>
+        <parameter key="comment_characters" value="#"/>
+        <parameter key="parse_numbers" value="true"/>
+        <parameter key="decimal_character" value="."/>
+        <parameter key="grouped_digits" value="false"/>
+        <parameter key="grouping_character" value=","/>
+        <parameter key="date_format" value=""/>
+        <parameter key="first_row_as_names" value="false"/>
+        <list key="annotations">
+          <parameter key="0" value="Name"/>
+        </list>
+        <parameter key="time_zone" value="SYSTEM"/>
+        <parameter key="locale" value="English (United States)"/>
+        <parameter key="encoding" value="UTF-8"/>
+        <list key="data_set_meta_data_information">
+          <parameter key="0" value="orderid.true.polynominal.attribute"/>
+          <parameter key="1" value="articleid.true.polynominal.attribute"/>
+          <parameter key="2" value="colorcode.true.real.attribute"/>
+          <parameter key="3" value="sizecode.true.polynominal.attribute"/>
+          <parameter key="4" value="productgroup.true.real.attribute"/>
+          <parameter key="5" value="quantity.true.real.attribute"/>
+          <parameter key="6" value="price.true.real.attribute"/>
+          <parameter key="7" value="rrp.true.real.attribute"/>
+          <parameter key="8" value="voucherid.true.polynominal.attribute"/>
+          <parameter key="9" value="voucheramount.true.real.attribute"/>
+          <parameter key="10" value="customerid.true.polynominal.attribute"/>
+          <parameter key="11" value="deviceid.true.real.attribute"/>
+          <parameter key="12" value="paymentmethod.true.polynominal.attribute"/>
+          <parameter key="13" value="returnquantity.true.real.attribute"/>
+          <parameter key="14" value="id.true.real.attribute"/>
+          <parameter key="15" value="orderdate.true.polynominal.attribute"/>
+          <parameter key="16" value="price_per_item.true.real.attribute"/>
+          <parameter key="17" value="price_to_rrp_ratio.true.real.attribute"/>
+          <parameter key="18" value="usual_price_ratio.true.real.attribute"/>
+          <parameter key="19" value="article_average_price.true.real.attribute"/>
+          <parameter key="20" value="article_cheapest_price.true.real.attribute"/>
+          <parameter key="21" value="article_most_expensive_price.true.real.attribute"/>
+          <parameter key="22" value="article_number_of_different_prices.true.real.attribute"/>
+          <parameter key="23" value="total_order_price.true.real.attribute"/>
+          <parameter key="24" value="different_sizes.true.real.attribute"/>
+          <parameter key="25" value="sizes.true.polynominal.attribute"/>
+          <parameter key="26" value="different_colors.true.real.attribute"/>
+          <parameter key="27" value="colors.true.polynominal.attribute"/>
+          <parameter key="28" value="color_returned_times.true.real.attribute"/>
+          <parameter key="29" value="color_bought_times.true.real.attribute"/>
+          <parameter key="30" value="color_returned_ratio.true.real.attribute"/>
+          <parameter key="31" value="size_returned_times.true.real.attribute"/>
+          <parameter key="32" value="size_bought_times.true.real.attribute"/>
+          <parameter key="33" value="size_returned_ratio.true.real.attribute"/>
+          <parameter key="34" value="NewProductGroup.true.polynominal.attribute"/>
+          <parameter key="35" value="NewSizeCode.true.polynominal.attribute"/>
+          <parameter key="36" value="new_paymentmethod.true.polynominal.attribute"/>
+          <parameter key="37" value="day in month.true.real.attribute"/>
+          <parameter key="38" value="month_of_year.true.real.attribute"/>
+          <parameter key="39" value="day_of_week.true.real.attribute"/>
+          <parameter key="40" value="quarter.true.real.attribute"/>
+          <parameter key="41" value="year_and_month.true.polynominal.attribute"/>
+        </list>
+        <parameter key="read_not_matching_values_as_missings" value="true"/>
+        <parameter key="datamanagement" value="double_array"/>
+      </operator>
+      <operator activated="true" class="subprocess" compatibility="7.0.001" expanded="true" height="82" name="preprocess" width="90" x="45" y="136">
+        <process expanded="true">
+          <operator activated="true" class="set_role" compatibility="7.0.001" expanded="true" height="82" name="Set Role" width="90" x="45" y="34">
+            <parameter key="attribute_name" value="returnquantity"/>
+            <parameter key="target_role" value="label"/>
+            <list key="set_additional_roles">
+              <parameter key="id" value="id"/>
+            </list>
+          </operator>
+          <operator activated="true" class="numerical_to_polynominal" compatibility="7.0.001" expanded="true" height="82" name="Numerical to Polynominal" width="90" x="246" y="34">
+            <parameter key="attribute_filter_type" value="subset"/>
+            <parameter key="attribute" value=""/>
+            <parameter key="attributes" value="colorcode|day in month|day_of_week|deviceid|month_of_year|quarter|returnquantity"/>
+            <parameter key="use_except_expression" value="false"/>
+            <parameter key="value_type" value="numeric"/>
+            <parameter key="use_value_type_exception" value="false"/>
+            <parameter key="except_value_type" value="real"/>
+            <parameter key="block_type" value="value_series"/>
+            <parameter key="use_block_type_exception" value="false"/>
+            <parameter key="except_block_type" value="value_series_end"/>
+            <parameter key="invert_selection" value="false"/>
+            <parameter key="include_special_attributes" value="true"/>
+          </operator>
+          <connect from_port="in 1" to_op="Set Role" to_port="example set input"/>
+          <connect from_op="Set Role" from_port="example set output" to_op="Numerical to Polynominal" to_port="example set input"/>
+          <connect from_op="Numerical to Polynominal" from_port="example set output" to_port="out 1"/>
+          <portSpacing port="source_in 1" spacing="0"/>
+          <portSpacing port="source_in 2" spacing="0"/>
+          <portSpacing port="sink_out 1" spacing="0"/>
+          <portSpacing port="sink_out 2" spacing="0"/>
+        </process>
+      </operator>
+      <operator activated="true" class="subprocess" compatibility="7.0.001" expanded="true" height="103" name="giveaways selector" width="90" x="179" y="34">
+        <process expanded="true">
+          <operator activated="true" class="filter_examples" compatibility="7.0.001" expanded="true" height="103" name="Giveaways (2)" width="90" x="112" y="34">
+            <parameter key="parameter_expression" value=""/>
+            <parameter key="condition_class" value="custom_filters"/>
+            <parameter key="invert_filter" value="true"/>
+            <list key="filters_list">
+              <parameter key="filters_entry_key" value="quantity.eq.0"/>
+            </list>
+            <parameter key="filters_logic_and" value="true"/>
+            <parameter key="filters_check_metadata" value="true"/>
+          </operator>
+          <operator activated="true" class="filter_examples" compatibility="7.0.001" expanded="true" height="103" name="Giveaways (6)" width="90" x="112" y="136">
+            <parameter key="parameter_expression" value=""/>
+            <parameter key="condition_class" value="custom_filters"/>
+            <parameter key="invert_filter" value="true"/>
+            <list key="filters_list">
+              <parameter key="filters_entry_key" value="colorcode.equals.8888\.0"/>
+            </list>
+            <parameter key="filters_logic_and" value="true"/>
+            <parameter key="filters_check_metadata" value="true"/>
+          </operator>
+          <operator activated="true" class="filter_examples" compatibility="7.0.001" expanded="true" height="103" name="Giveaways (7)" width="90" x="112" y="238">
+            <parameter key="parameter_expression" value=""/>
+            <parameter key="condition_class" value="custom_filters"/>
+            <parameter key="invert_filter" value="true"/>
+            <list key="filters_list">
+              <parameter key="filters_entry_key" value="price.eq.0"/>
+            </list>
+            <parameter key="filters_logic_and" value="true"/>
+            <parameter key="filters_check_metadata" value="true"/>
+          </operator>
+          <operator activated="true" class="declare_missing_value" compatibility="7.0.001" expanded="true" height="82" name="Declare Missing Value" width="90" x="246" y="34">
+            <parameter key="attribute_filter_type" value="subset"/>
+            <parameter key="attribute" value=""/>
+            <parameter key="attributes" value="article_average_price|article_cheapest_price|article_most_expensive_price|productgroup|rrp|voucherid"/>
+            <parameter key="use_except_expression" value="false"/>
+            <parameter key="value_type" value="attribute_value"/>
+            <parameter key="use_value_type_exception" value="false"/>
+            <parameter key="except_value_type" value="time"/>
+            <parameter key="block_type" value="attribute_block"/>
+            <parameter key="use_block_type_exception" value="false"/>
+            <parameter key="except_block_type" value="value_matrix_row_start"/>
+            <parameter key="invert_selection" value="false"/>
+            <parameter key="include_special_attributes" value="false"/>
+            <parameter key="mode" value="nominal"/>
+            <parameter key="nominal_value" value="NA"/>
+            <parameter key="expression_value" value=""/>
+          </operator>
+          <operator activated="true" class="filter_examples" compatibility="7.0.001" expanded="true" height="103" name="Giveaways (3)" width="90" x="380" y="34">
+            <parameter key="parameter_expression" value=""/>
+            <parameter key="condition_class" value="missing_attributes"/>
+            <parameter key="invert_filter" value="true"/>
+            <list key="filters_list"/>
+            <parameter key="filters_logic_and" value="true"/>
+            <parameter key="filters_check_metadata" value="true"/>
+          </operator>
+          <operator activated="true" class="append" compatibility="7.0.001" expanded="true" height="103" name="Giveaways" width="90" x="313" y="289">
+            <parameter key="datamanagement" value="double_array"/>
+            <parameter key="merge_type" value="all"/>
+          </operator>
+          <connect from_port="in 1" to_op="Giveaways (2)" to_port="example set input"/>
+          <connect from_op="Giveaways (2)" from_port="example set output" to_op="Giveaways (6)" to_port="example set input"/>
+          <connect from_op="Giveaways (2)" from_port="unmatched example set" to_op="Giveaways" to_port="example set 2"/>
+          <connect from_op="Giveaways (6)" from_port="example set output" to_op="Giveaways (7)" to_port="example set input"/>
+          <connect from_op="Giveaways (7)" from_port="example set output" to_op="Declare Missing Value" to_port="example set input"/>
+          <connect from_op="Declare Missing Value" from_port="example set output" to_op="Giveaways (3)" to_port="example set input"/>
+          <connect from_op="Giveaways (3)" from_port="example set output" to_port="out 1"/>
+          <connect from_op="Giveaways (3)" from_port="unmatched example set" to_op="Giveaways" to_port="example set 1"/>
+          <connect from_op="Giveaways" from_port="merged set" to_port="out 2"/>
+          <portSpacing port="source_in 1" spacing="0"/>
+          <portSpacing port="source_in 2" spacing="0"/>
+          <portSpacing port="sink_out 1" spacing="0"/>
+          <portSpacing port="sink_out 2" spacing="0"/>
+          <portSpacing port="sink_out 3" spacing="0"/>
+        </process>
+      </operator>
+      <operator activated="true" class="multiply" compatibility="7.0.001" expanded="true" height="145" name="Training" width="90" x="313" y="34"/>
+      <operator activated="true" class="read_csv" compatibility="7.0.001" expanded="true" height="68" name="read test" width="90" x="45" y="340">
+        <parameter key="csv_file" value="/Users/ariera/Dropbox/ariera/UniMannheim/Data Mining II/FSS2016/99. Project/week3/dm2_test_all_features.csv"/>
+        <parameter key="column_separators" value=";"/>
+        <parameter key="trim_lines" value="false"/>
+        <parameter key="use_quotes" value="true"/>
+        <parameter key="quotes_character" value="&quot;"/>
+        <parameter key="escape_character" value="\"/>
+        <parameter key="skip_comments" value="false"/>
+        <parameter key="comment_characters" value="#"/>
+        <parameter key="parse_numbers" value="true"/>
+        <parameter key="decimal_character" value="."/>
+        <parameter key="grouped_digits" value="false"/>
+        <parameter key="grouping_character" value=","/>
+        <parameter key="date_format" value=""/>
+        <parameter key="first_row_as_names" value="false"/>
+        <list key="annotations">
+          <parameter key="0" value="Name"/>
+        </list>
+        <parameter key="time_zone" value="SYSTEM"/>
+        <parameter key="locale" value="English (United States)"/>
+        <parameter key="encoding" value="UTF-8"/>
+        <list key="data_set_meta_data_information">
+          <parameter key="0" value="orderid.true.polynominal.attribute"/>
+          <parameter key="1" value="articleid.true.polynominal.attribute"/>
+          <parameter key="2" value="colorcode.true.real.attribute"/>
+          <parameter key="3" value="sizecode.true.polynominal.attribute"/>
+          <parameter key="4" value="productgroup.true.real.attribute"/>
+          <parameter key="5" value="quantity.true.real.attribute"/>
+          <parameter key="6" value="price.true.real.attribute"/>
+          <parameter key="7" value="rrp.true.real.attribute"/>
+          <parameter key="8" value="voucherid.true.polynominal.attribute"/>
+          <parameter key="9" value="voucheramount.true.real.attribute"/>
+          <parameter key="10" value="customerid.true.polynominal.attribute"/>
+          <parameter key="11" value="deviceid.true.real.attribute"/>
+          <parameter key="12" value="paymentmethod.true.polynominal.attribute"/>
+          <parameter key="13" value="returnquantity.true.real.attribute"/>
+          <parameter key="14" value="id.true.real.attribute"/>
+          <parameter key="15" value="orderdate.true.polynominal.attribute"/>
+          <parameter key="16" value="price_per_item.true.real.attribute"/>
+          <parameter key="17" value="price_to_rrp_ratio.true.real.attribute"/>
+          <parameter key="18" value="usual_price_ratio.true.real.attribute"/>
+          <parameter key="19" value="article_average_price.true.real.attribute"/>
+          <parameter key="20" value="article_cheapest_price.true.real.attribute"/>
+          <parameter key="21" value="article_most_expensive_price.true.real.attribute"/>
+          <parameter key="22" value="article_number_of_different_prices.true.real.attribute"/>
+          <parameter key="23" value="total_order_price.true.real.attribute"/>
+          <parameter key="24" value="different_sizes.true.real.attribute"/>
+          <parameter key="25" value="sizes.true.polynominal.attribute"/>
+          <parameter key="26" value="different_colors.true.real.attribute"/>
+          <parameter key="27" value="colors.true.polynominal.attribute"/>
+          <parameter key="28" value="NewProductGroup.true.polynominal.attribute"/>
+          <parameter key="29" value="NewSizeCode.true.polynominal.attribute"/>
+          <parameter key="30" value="new_paymentmethod.true.polynominal.attribute"/>
+          <parameter key="31" value="day in month.true.real.attribute"/>
+          <parameter key="32" value="month_of_year.true.real.attribute"/>
+          <parameter key="33" value="day_of_week.true.real.attribute"/>
+          <parameter key="34" value="quarter.true.real.attribute"/>
+          <parameter key="35" value="year_and_month.true.polynominal.attribute"/>
+        </list>
+        <parameter key="read_not_matching_values_as_missings" value="true"/>
+        <parameter key="datamanagement" value="double_array"/>
+      </operator>
+      <operator activated="true" class="subprocess" compatibility="7.0.001" expanded="true" height="82" name="preprocess (2)" width="90" x="45" y="442">
+        <process expanded="true">
+          <operator activated="true" class="set_role" compatibility="7.0.001" expanded="true" height="82" name="Set Role (3)" width="90" x="45" y="34">
+            <parameter key="attribute_name" value="returnquantity"/>
+            <parameter key="target_role" value="label"/>
+            <list key="set_additional_roles">
+              <parameter key="id" value="id"/>
+            </list>
+          </operator>
+          <operator activated="true" class="numerical_to_polynominal" compatibility="7.0.001" expanded="true" height="82" name="Numerical to Polynominal (2)" width="90" x="246" y="34">
+            <parameter key="attribute_filter_type" value="subset"/>
+            <parameter key="attribute" value=""/>
+            <parameter key="attributes" value="colorcode|day in month|day_of_week|deviceid|month_of_year|quarter|returnquantity"/>
+            <parameter key="use_except_expression" value="false"/>
+            <parameter key="value_type" value="numeric"/>
+            <parameter key="use_value_type_exception" value="false"/>
+            <parameter key="except_value_type" value="real"/>
+            <parameter key="block_type" value="value_series"/>
+            <parameter key="use_block_type_exception" value="false"/>
+            <parameter key="except_block_type" value="value_series_end"/>
+            <parameter key="invert_selection" value="false"/>
+            <parameter key="include_special_attributes" value="true"/>
+          </operator>
+          <connect from_port="in 1" to_op="Set Role (3)" to_port="example set input"/>
+          <connect from_op="Set Role (3)" from_port="example set output" to_op="Numerical to Polynominal (2)" to_port="example set input"/>
+          <connect from_op="Numerical to Polynominal (2)" from_port="example set output" to_port="out 1"/>
+          <portSpacing port="source_in 1" spacing="0"/>
+          <portSpacing port="source_in 2" spacing="0"/>
+          <portSpacing port="sink_out 1" spacing="0"/>
+          <portSpacing port="sink_out 2" spacing="0"/>
+        </process>
+      </operator>
+      <operator activated="true" class="subprocess" compatibility="7.0.001" expanded="true" height="103" name="giveaways selector (2)" width="90" x="179" y="340">
+        <process expanded="true">
+          <operator activated="true" class="filter_examples" compatibility="7.0.001" expanded="true" height="103" name="Giveaways (4)" width="90" x="112" y="34">
+            <parameter key="parameter_expression" value=""/>
+            <parameter key="condition_class" value="custom_filters"/>
+            <parameter key="invert_filter" value="true"/>
+            <list key="filters_list">
+              <parameter key="filters_entry_key" value="quantity.eq.0"/>
+            </list>
+            <parameter key="filters_logic_and" value="true"/>
+            <parameter key="filters_check_metadata" value="true"/>
+          </operator>
+          <operator activated="true" class="filter_examples" compatibility="7.0.001" expanded="true" height="103" name="Giveaways (8)" width="90" x="112" y="136">
+            <parameter key="parameter_expression" value=""/>
+            <parameter key="condition_class" value="custom_filters"/>
+            <parameter key="invert_filter" value="true"/>
+            <list key="filters_list">
+              <parameter key="filters_entry_key" value="colorcode.equals.8888\.0"/>
+            </list>
+            <parameter key="filters_logic_and" value="true"/>
+            <parameter key="filters_check_metadata" value="true"/>
+          </operator>
+          <operator activated="true" class="filter_examples" compatibility="7.0.001" expanded="true" height="103" name="Giveaways (9)" width="90" x="112" y="238">
+            <parameter key="parameter_expression" value=""/>
+            <parameter key="condition_class" value="custom_filters"/>
+            <parameter key="invert_filter" value="true"/>
+            <list key="filters_list">
+              <parameter key="filters_entry_key" value="price.eq.0"/>
+            </list>
+            <parameter key="filters_logic_and" value="true"/>
+            <parameter key="filters_check_metadata" value="true"/>
+          </operator>
+          <operator activated="true" class="declare_missing_value" compatibility="7.0.001" expanded="true" height="82" name="Declare Missing Value (2)" width="90" x="246" y="34">
+            <parameter key="attribute_filter_type" value="subset"/>
+            <parameter key="attribute" value=""/>
+            <parameter key="attributes" value="article_average_price|article_cheapest_price|article_most_expensive_price|productgroup|rrp|voucherid"/>
+            <parameter key="use_except_expression" value="false"/>
+            <parameter key="value_type" value="attribute_value"/>
+            <parameter key="use_value_type_exception" value="false"/>
+            <parameter key="except_value_type" value="time"/>
+            <parameter key="block_type" value="attribute_block"/>
+            <parameter key="use_block_type_exception" value="false"/>
+            <parameter key="except_block_type" value="value_matrix_row_start"/>
+            <parameter key="invert_selection" value="false"/>
+            <parameter key="include_special_attributes" value="false"/>
+            <parameter key="mode" value="nominal"/>
+            <parameter key="nominal_value" value="NA"/>
+            <parameter key="expression_value" value=""/>
+          </operator>
+          <operator activated="true" class="filter_examples" compatibility="7.0.001" expanded="true" height="103" name="Giveaways (5)" width="90" x="380" y="34">
+            <parameter key="parameter_expression" value=""/>
+            <parameter key="condition_class" value="missing_attributes"/>
+            <parameter key="invert_filter" value="true"/>
+            <list key="filters_list"/>
+            <parameter key="filters_logic_and" value="true"/>
+            <parameter key="filters_check_metadata" value="true"/>
+          </operator>
+          <operator activated="true" class="append" compatibility="7.0.001" expanded="true" height="103" name="Test Giveaways" width="90" x="313" y="289">
+            <parameter key="datamanagement" value="double_array"/>
+            <parameter key="merge_type" value="all"/>
+          </operator>
+          <connect from_port="in 1" to_op="Giveaways (4)" to_port="example set input"/>
+          <connect from_op="Giveaways (4)" from_port="example set output" to_op="Giveaways (8)" to_port="example set input"/>
+          <connect from_op="Giveaways (4)" from_port="unmatched example set" to_op="Test Giveaways" to_port="example set 2"/>
+          <connect from_op="Giveaways (8)" from_port="example set output" to_op="Giveaways (9)" to_port="example set input"/>
+          <connect from_op="Giveaways (9)" from_port="example set output" to_op="Declare Missing Value (2)" to_port="example set input"/>
+          <connect from_op="Declare Missing Value (2)" from_port="example set output" to_op="Giveaways (5)" to_port="example set input"/>
+          <connect from_op="Giveaways (5)" from_port="example set output" to_port="out 1"/>
+          <connect from_op="Giveaways (5)" from_port="unmatched example set" to_op="Test Giveaways" to_port="example set 1"/>
+          <connect from_op="Test Giveaways" from_port="merged set" to_port="out 2"/>
+          <portSpacing port="source_in 1" spacing="0"/>
+          <portSpacing port="source_in 2" spacing="0"/>
+          <portSpacing port="sink_out 1" spacing="0"/>
+          <portSpacing port="sink_out 2" spacing="0"/>
+          <portSpacing port="sink_out 3" spacing="0"/>
+        </process>
+      </operator>
+      <operator activated="true" class="multiply" compatibility="7.0.001" expanded="true" height="145" name="Test" width="90" x="313" y="340"/>
+      <operator activated="true" class="subprocess" compatibility="7.0.001" expanded="true" height="145" name="New customers" width="90" x="514" y="340">
+        <process expanded="true">
+          <operator activated="true" class="aggregate" compatibility="7.0.001" expanded="true" height="82" name="Aggregate (2)" width="90" x="112" y="85">
+            <parameter key="use_default_aggregation" value="false"/>
+            <parameter key="attribute_filter_type" value="all"/>
+            <parameter key="attribute" value=""/>
+            <parameter key="attributes" value=""/>
+            <parameter key="use_except_expression" value="false"/>
+            <parameter key="value_type" value="attribute_value"/>
+            <parameter key="use_value_type_exception" value="false"/>
+            <parameter key="except_value_type" value="time"/>
+            <parameter key="block_type" value="attribute_block"/>
+            <parameter key="use_block_type_exception" value="false"/>
+            <parameter key="except_block_type" value="value_matrix_row_start"/>
+            <parameter key="invert_selection" value="false"/>
+            <parameter key="include_special_attributes" value="false"/>
+            <parameter key="default_aggregation_function" value="average"/>
+            <list key="aggregation_attributes">
+              <parameter key="customerid" value="concatenation"/>
+            </list>
+            <parameter key="group_by_attributes" value="customerid"/>
+            <parameter key="count_all_combinations" value="false"/>
+            <parameter key="only_distinct" value="true"/>
+            <parameter key="ignore_missings" value="true"/>
+          </operator>
+          <operator activated="true" class="aggregate" compatibility="7.0.001" expanded="true" height="82" name="Aggregate (4)" width="90" x="45" y="238">
+            <parameter key="use_default_aggregation" value="false"/>
+            <parameter key="attribute_filter_type" value="all"/>
+            <parameter key="attribute" value=""/>
+            <parameter key="attributes" value=""/>
+            <parameter key="use_except_expression" value="false"/>
+            <parameter key="value_type" value="attribute_value"/>
+            <parameter key="use_value_type_exception" value="false"/>
+            <parameter key="except_value_type" value="time"/>
+            <parameter key="block_type" value="attribute_block"/>
+            <parameter key="use_block_type_exception" value="false"/>
+            <parameter key="except_block_type" value="value_matrix_row_start"/>
+            <parameter key="invert_selection" value="false"/>
+            <parameter key="include_special_attributes" value="false"/>
+            <parameter key="default_aggregation_function" value="average"/>
+            <list key="aggregation_attributes">
+              <parameter key="customerid" value="concatenation"/>
+            </list>
+            <parameter key="group_by_attributes" value="customerid"/>
+            <parameter key="count_all_combinations" value="false"/>
+            <parameter key="only_distinct" value="false"/>
+            <parameter key="ignore_missings" value="true"/>
+          </operator>
+          <operator activated="true" class="join" compatibility="7.0.001" expanded="true" height="82" name="Join (3)" width="90" x="246" y="187">
+            <parameter key="remove_double_attributes" value="true"/>
+            <parameter key="join_type" value="left"/>
+            <parameter key="use_id_attribute_as_key" value="false"/>
+            <list key="key_attributes">
+              <parameter key="customerid" value="customerid"/>
+            </list>
+            <parameter key="keep_both_join_attributes" value="false"/>
+          </operator>
+          <operator activated="true" class="join" compatibility="7.0.001" expanded="true" height="82" name="Join" width="90" x="246" y="34">
+            <parameter key="remove_double_attributes" value="true"/>
+            <parameter key="join_type" value="left"/>
+            <parameter key="use_id_attribute_as_key" value="false"/>
+            <list key="key_attributes">
+              <parameter key="customerid" value="customerid"/>
+            </list>
+            <parameter key="keep_both_join_attributes" value="false"/>
+          </operator>
+          <operator activated="true" class="filter_examples" compatibility="7.0.001" expanded="true" height="103" name="Filter Examples" width="90" x="380" y="34">
+            <parameter key="parameter_expression" value=""/>
+            <parameter key="condition_class" value="custom_filters"/>
+            <parameter key="invert_filter" value="false"/>
+            <list key="filters_list">
+              <parameter key="filters_entry_key" value="concat(customerid).is_missing."/>
+            </list>
+            <parameter key="filters_logic_and" value="true"/>
+            <parameter key="filters_check_metadata" value="true"/>
+          </operator>
+          <operator activated="true" class="select_attributes" compatibility="7.0.001" expanded="true" height="82" name="Train new cust" width="90" x="514" y="34">
+            <parameter key="attribute_filter_type" value="subset"/>
+            <parameter key="attribute" value=""/>
+            <parameter key="attributes" value="customerid|color_bought_times|color_returned_ratio|color_returned_times|size_bought_times|size_returned_ratio|size_returned_times"/>
+            <parameter key="use_except_expression" value="false"/>
+            <parameter key="value_type" value="attribute_value"/>
+            <parameter key="use_value_type_exception" value="false"/>
+            <parameter key="except_value_type" value="time"/>
+            <parameter key="block_type" value="attribute_block"/>
+            <parameter key="use_block_type_exception" value="false"/>
+            <parameter key="except_block_type" value="value_matrix_row_start"/>
+            <parameter key="invert_selection" value="true"/>
+            <parameter key="include_special_attributes" value="false"/>
+          </operator>
+          <operator activated="true" class="filter_examples" compatibility="7.0.001" expanded="true" height="103" name="Filter Examples (2)" width="90" x="380" y="187">
+            <parameter key="parameter_expression" value=""/>
+            <parameter key="condition_class" value="custom_filters"/>
+            <parameter key="invert_filter" value="false"/>
+            <list key="filters_list">
+              <parameter key="filters_entry_key" value="concat(customerid).is_missing."/>
+            </list>
+            <parameter key="filters_logic_and" value="true"/>
+            <parameter key="filters_check_metadata" value="true"/>
+          </operator>
+          <operator activated="true" class="select_attributes" compatibility="7.0.001" expanded="true" height="82" name="Test new cust" width="90" x="514" y="187">
+            <parameter key="attribute_filter_type" value="subset"/>
+            <parameter key="attribute" value=""/>
+            <parameter key="attributes" value="customerid|size_returned_times|size_returned_ratio|size_bought_times|color_returned_times|color_returned_ratio|color_bought_times|average(price)"/>
+            <parameter key="use_except_expression" value="false"/>
+            <parameter key="value_type" value="attribute_value"/>
+            <parameter key="use_value_type_exception" value="false"/>
+            <parameter key="except_value_type" value="time"/>
+            <parameter key="block_type" value="attribute_block"/>
+            <parameter key="use_block_type_exception" value="false"/>
+            <parameter key="except_block_type" value="value_matrix_row_start"/>
+            <parameter key="invert_selection" value="true"/>
+            <parameter key="include_special_attributes" value="false"/>
+          </operator>
+          <connect from_port="in 1" to_op="Join" to_port="left"/>
+          <connect from_port="in 2" to_op="Aggregate (2)" to_port="example set input"/>
+          <connect from_port="in 3" to_op="Aggregate (4)" to_port="example set input"/>
+          <connect from_port="in 4" to_op="Join (3)" to_port="left"/>
+          <connect from_op="Aggregate (2)" from_port="example set output" to_op="Join" to_port="right"/>
+          <connect from_op="Aggregate (4)" from_port="example set output" to_op="Join (3)" to_port="right"/>
+          <connect from_op="Join (3)" from_port="join" to_op="Filter Examples (2)" to_port="example set input"/>
+          <connect from_op="Join" from_port="join" to_op="Filter Examples" to_port="example set input"/>
+          <connect from_op="Filter Examples" from_port="example set output" to_op="Train new cust" to_port="example set input"/>
+          <connect from_op="Train new cust" from_port="example set output" to_port="out 1"/>
+          <connect from_op="Filter Examples (2)" from_port="example set output" to_op="Test new cust" to_port="example set input"/>
+          <connect from_op="Test new cust" from_port="example set output" to_port="out 2"/>
+          <portSpacing port="source_in 1" spacing="0"/>
+          <portSpacing port="source_in 2" spacing="0"/>
+          <portSpacing port="source_in 3" spacing="0"/>
+          <portSpacing port="source_in 4" spacing="0"/>
+          <portSpacing port="source_in 5" spacing="0"/>
+          <portSpacing port="sink_out 1" spacing="0"/>
+          <portSpacing port="sink_out 2" spacing="0"/>
+          <portSpacing port="sink_out 3" spacing="0"/>
+          <portSpacing port="sink_out 4" spacing="0"/>
+        </process>
+      </operator>
+      <operator activated="true" class="write_csv" compatibility="7.0.001" expanded="true" height="82" name="test_new_cst_CSV" width="90" x="782" y="442">
+        <parameter key="csv_file" value="/Users/ariera/Dropbox/ariera/UniMannheim/Data Mining II/FSS2016/99. Project/week3/all_features_splited/dm2_test_new_customers.csv"/>
+        <parameter key="column_separator" value=";"/>
+        <parameter key="write_attribute_names" value="true"/>
+        <parameter key="quote_nominal_values" value="true"/>
+        <parameter key="format_date_attributes" value="true"/>
+        <parameter key="append_to_file" value="false"/>
+        <parameter key="encoding" value="SYSTEM"/>
+      </operator>
+      <operator activated="true" class="write_csv" compatibility="7.0.001" expanded="true" height="82" name="train_new_cst_CSV" width="90" x="782" y="340">
+        <parameter key="csv_file" value="/Users/ariera/Dropbox/ariera/UniMannheim/Data Mining II/FSS2016/99. Project/week3/all_features_splited/dm2_train_sample_new_customer.csv"/>
+        <parameter key="column_separator" value=";"/>
+        <parameter key="write_attribute_names" value="true"/>
+        <parameter key="quote_nominal_values" value="true"/>
+        <parameter key="format_date_attributes" value="true"/>
+        <parameter key="append_to_file" value="false"/>
+        <parameter key="encoding" value="SYSTEM"/>
+      </operator>
+      <operator activated="false" class="subprocess" compatibility="7.0.001" expanded="true" height="103" name="classify (2)" width="90" x="581" y="493">
+        <process expanded="true">
+          <operator activated="true" class="naive_bayes" compatibility="7.0.001" expanded="true" height="82" name="Naive Bayes (2)" width="90" x="112" y="34">
+            <parameter key="laplace_correction" value="true"/>
+          </operator>
+          <operator activated="true" class="apply_model" compatibility="7.0.001" expanded="true" height="82" name="Apply Model (2)" width="90" x="313" y="34">
+            <list key="application_parameters"/>
+            <parameter key="create_view" value="false"/>
+          </operator>
+          <operator activated="true" class="performance_classification" compatibility="7.0.001" expanded="true" height="82" name="Performance (2)" width="90" x="514" y="34">
+            <parameter key="main_criterion" value="first"/>
+            <parameter key="accuracy" value="true"/>
+            <parameter key="classification_error" value="false"/>
+            <parameter key="kappa" value="false"/>
+            <parameter key="weighted_mean_recall" value="false"/>
+            <parameter key="weighted_mean_precision" value="false"/>
+            <parameter key="spearman_rho" value="false"/>
+            <parameter key="kendall_tau" value="false"/>
+            <parameter key="absolute_error" value="false"/>
+            <parameter key="relative_error" value="false"/>
+            <parameter key="relative_error_lenient" value="false"/>
+            <parameter key="relative_error_strict" value="false"/>
+            <parameter key="normalized_absolute_error" value="false"/>
+            <parameter key="root_mean_squared_error" value="false"/>
+            <parameter key="root_relative_squared_error" value="false"/>
+            <parameter key="squared_error" value="false"/>
+            <parameter key="correlation" value="false"/>
+            <parameter key="squared_correlation" value="false"/>
+            <parameter key="cross-entropy" value="false"/>
+            <parameter key="margin" value="false"/>
+            <parameter key="soft_margin_loss" value="false"/>
+            <parameter key="logistic_loss" value="false"/>
+            <parameter key="skip_undefined_labels" value="true"/>
+            <parameter key="use_example_weights" value="true"/>
+            <list key="class_weights"/>
+          </operator>
+          <connect from_port="in 1" to_op="Naive Bayes (2)" to_port="training set"/>
+          <connect from_port="in 2" to_op="Apply Model (2)" to_port="unlabelled data"/>
+          <connect from_op="Naive Bayes (2)" from_port="model" to_op="Apply Model (2)" to_port="model"/>
+          <connect from_op="Apply Model (2)" from_port="labelled data" to_op="Performance (2)" to_port="labelled data"/>
+          <connect from_op="Performance (2)" from_port="performance" to_port="out 1"/>
+          <connect from_op="Performance (2)" from_port="example set" to_port="out 2"/>
+          <portSpacing port="source_in 1" spacing="0"/>
+          <portSpacing port="source_in 2" spacing="0"/>
+          <portSpacing port="source_in 3" spacing="0"/>
+          <portSpacing port="sink_out 1" spacing="0"/>
+          <portSpacing port="sink_out 2" spacing="0"/>
+          <portSpacing port="sink_out 3" spacing="0"/>
+        </process>
+      </operator>
+      <operator activated="true" class="subprocess" compatibility="7.0.001" expanded="true" height="145" name="Known customers" width="90" x="514" y="34">
+        <process expanded="true">
+          <operator activated="true" class="aggregate" compatibility="7.0.001" expanded="true" height="82" name="Aggregate" width="90" x="112" y="85">
+            <parameter key="use_default_aggregation" value="false"/>
+            <parameter key="attribute_filter_type" value="all"/>
+            <parameter key="attribute" value=""/>
+            <parameter key="attributes" value=""/>
+            <parameter key="use_except_expression" value="false"/>
+            <parameter key="value_type" value="attribute_value"/>
+            <parameter key="use_value_type_exception" value="false"/>
+            <parameter key="except_value_type" value="time"/>
+            <parameter key="block_type" value="attribute_block"/>
+            <parameter key="use_block_type_exception" value="false"/>
+            <parameter key="except_block_type" value="value_matrix_row_start"/>
+            <parameter key="invert_selection" value="false"/>
+            <parameter key="include_special_attributes" value="false"/>
+            <parameter key="default_aggregation_function" value="average"/>
+            <list key="aggregation_attributes">
+              <parameter key="quantity" value="average"/>
+            </list>
+            <parameter key="group_by_attributes" value="customerid"/>
+            <parameter key="count_all_combinations" value="false"/>
+            <parameter key="only_distinct" value="false"/>
+            <parameter key="ignore_missings" value="true"/>
+          </operator>
+          <operator activated="true" class="join" compatibility="7.0.001" expanded="true" height="82" name="TrainCustomers" width="90" x="246" y="34">
+            <parameter key="remove_double_attributes" value="true"/>
+            <parameter key="join_type" value="inner"/>
+            <parameter key="use_id_attribute_as_key" value="false"/>
+            <list key="key_attributes">
+              <parameter key="customerid" value="customerid"/>
+            </list>
+            <parameter key="keep_both_join_attributes" value="false"/>
+          </operator>
+          <operator activated="true" class="remove_duplicates" compatibility="7.0.001" expanded="true" height="82" name="Remove Duplicates" width="90" x="380" y="34">
+            <parameter key="attribute_filter_type" value="all"/>
+            <parameter key="attribute" value=""/>
+            <parameter key="attributes" value=""/>
+            <parameter key="use_except_expression" value="false"/>
+            <parameter key="value_type" value="attribute_value"/>
+            <parameter key="use_value_type_exception" value="false"/>
+            <parameter key="except_value_type" value="time"/>
+            <parameter key="block_type" value="attribute_block"/>
+            <parameter key="use_block_type_exception" value="false"/>
+            <parameter key="except_block_type" value="value_matrix_row_start"/>
+            <parameter key="invert_selection" value="false"/>
+            <parameter key="include_special_attributes" value="false"/>
+            <parameter key="treat_missing_values_as_duplicates" value="false"/>
+          </operator>
+          <operator activated="true" class="select_attributes" compatibility="7.0.001" expanded="true" height="82" name="Train known cust" width="90" x="514" y="34">
+            <parameter key="attribute_filter_type" value="single"/>
+            <parameter key="attribute" value="average(quantity)"/>
+            <parameter key="attributes" value=""/>
+            <parameter key="use_except_expression" value="false"/>
+            <parameter key="value_type" value="attribute_value"/>
+            <parameter key="use_value_type_exception" value="false"/>
+            <parameter key="except_value_type" value="time"/>
+            <parameter key="block_type" value="attribute_block"/>
+            <parameter key="use_block_type_exception" value="false"/>
+            <parameter key="except_block_type" value="value_matrix_row_start"/>
+            <parameter key="invert_selection" value="true"/>
+            <parameter key="include_special_attributes" value="false"/>
+          </operator>
+          <operator activated="true" class="aggregate" compatibility="7.0.001" expanded="true" height="82" name="Aggregate (5)" width="90" x="112" y="340">
+            <parameter key="use_default_aggregation" value="false"/>
+            <parameter key="attribute_filter_type" value="all"/>
+            <parameter key="attribute" value=""/>
+            <parameter key="attributes" value=""/>
+            <parameter key="use_except_expression" value="false"/>
+            <parameter key="value_type" value="attribute_value"/>
+            <parameter key="use_value_type_exception" value="false"/>
+            <parameter key="except_value_type" value="time"/>
+            <parameter key="block_type" value="attribute_block"/>
+            <parameter key="use_block_type_exception" value="false"/>
+            <parameter key="except_block_type" value="value_matrix_row_start"/>
+            <parameter key="invert_selection" value="false"/>
+            <parameter key="include_special_attributes" value="false"/>
+            <parameter key="default_aggregation_function" value="average"/>
+            <list key="aggregation_attributes">
+              <parameter key="size_bought_times" value="maximum"/>
+              <parameter key="size_returned_ratio" value="maximum"/>
+              <parameter key="size_returned_times" value="maximum"/>
+              <parameter key="color_bought_times" value="maximum"/>
+              <parameter key="color_returned_ratio" value="maximum"/>
+              <parameter key="color_returned_times" value="maximum"/>
+            </list>
+            <parameter key="group_by_attributes" value="customerid"/>
+            <parameter key="count_all_combinations" value="false"/>
+            <parameter key="only_distinct" value="false"/>
+            <parameter key="ignore_missings" value="true"/>
+          </operator>
+          <operator activated="true" class="join" compatibility="7.0.001" expanded="true" height="82" name="TestCustomers" width="90" x="112" y="493">
+            <parameter key="remove_double_attributes" value="true"/>
+            <parameter key="join_type" value="inner"/>
+            <parameter key="use_id_attribute_as_key" value="false"/>
+            <list key="key_attributes">
+              <parameter key="customerid" value="customerid"/>
+            </list>
+            <parameter key="keep_both_join_attributes" value="false"/>
+          </operator>
+          <operator activated="true" class="rename" compatibility="7.0.001" expanded="true" height="82" name="Rename" width="90" x="246" y="493">
+            <parameter key="old_name" value="maximum(color_bought_times)"/>
+            <parameter key="new_name" value="color_bought_times"/>
+            <list key="rename_additional_attributes">
+              <parameter key="maximum(color_returned_ratio)" value="color_returned_ratio"/>
+              <parameter key="maximum(color_returned_times)" value="color_returned_times"/>
+              <parameter key="maximum(size_bought_times)" value="size_bought_times"/>
+              <parameter key="maximum(size_returned_ratio)" value="size_returned_ratio"/>
+              <parameter key="maximum(size_returned_times)" value="size_returned_times"/>
+            </list>
+          </operator>
+          <operator activated="true" class="remove_duplicates" compatibility="7.0.001" expanded="true" height="82" name="Remove Duplicates (2)" width="90" x="380" y="493">
+            <parameter key="attribute_filter_type" value="all"/>
+            <parameter key="attribute" value=""/>
+            <parameter key="attributes" value=""/>
+            <parameter key="use_except_expression" value="false"/>
+            <parameter key="value_type" value="attribute_value"/>
+            <parameter key="use_value_type_exception" value="false"/>
+            <parameter key="except_value_type" value="time"/>
+            <parameter key="block_type" value="attribute_block"/>
+            <parameter key="use_block_type_exception" value="false"/>
+            <parameter key="except_block_type" value="value_matrix_row_start"/>
+            <parameter key="invert_selection" value="false"/>
+            <parameter key="include_special_attributes" value="false"/>
+            <parameter key="treat_missing_values_as_duplicates" value="false"/>
+          </operator>
+          <operator activated="true" class="select_attributes" compatibility="7.0.001" expanded="true" height="82" name="Test known cust" width="90" x="581" y="493">
+            <parameter key="attribute_filter_type" value="single"/>
+            <parameter key="attribute" value="average(quantity)"/>
+            <parameter key="attributes" value=""/>
+            <parameter key="use_except_expression" value="false"/>
+            <parameter key="value_type" value="attribute_value"/>
+            <parameter key="use_value_type_exception" value="false"/>
+            <parameter key="except_value_type" value="time"/>
+            <parameter key="block_type" value="attribute_block"/>
+            <parameter key="use_block_type_exception" value="false"/>
+            <parameter key="except_block_type" value="value_matrix_row_start"/>
+            <parameter key="invert_selection" value="true"/>
+            <parameter key="include_special_attributes" value="false"/>
+          </operator>
+          <connect from_port="in 1" to_op="TrainCustomers" to_port="left"/>
+          <connect from_port="in 2" to_op="Aggregate" to_port="example set input"/>
+          <connect from_port="in 3" to_op="Aggregate (5)" to_port="example set input"/>
+          <connect from_port="in 4" to_op="TestCustomers" to_port="right"/>
+          <connect from_op="Aggregate" from_port="example set output" to_op="TrainCustomers" to_port="right"/>
+          <connect from_op="TrainCustomers" from_port="join" to_op="Remove Duplicates" to_port="example set input"/>
+          <connect from_op="Remove Duplicates" from_port="example set output" to_op="Train known cust" to_port="example set input"/>
+          <connect from_op="Train known cust" from_port="example set output" to_port="out 1"/>
+          <connect from_op="Aggregate (5)" from_port="example set output" to_op="TestCustomers" to_port="left"/>
+          <connect from_op="TestCustomers" from_port="join" to_op="Rename" to_port="example set input"/>
+          <connect from_op="Rename" from_port="example set output" to_op="Remove Duplicates (2)" to_port="example set input"/>
+          <connect from_op="Remove Duplicates (2)" from_port="example set output" to_op="Test known cust" to_port="example set input"/>
+          <connect from_op="Test known cust" from_port="example set output" to_port="out 2"/>
+          <portSpacing port="source_in 1" spacing="0"/>
+          <portSpacing port="source_in 2" spacing="0"/>
+          <portSpacing port="source_in 3" spacing="0"/>
+          <portSpacing port="source_in 4" spacing="0"/>
+          <portSpacing port="source_in 5" spacing="0"/>
+          <portSpacing port="sink_out 1" spacing="0"/>
+          <portSpacing port="sink_out 2" spacing="0"/>
+          <portSpacing port="sink_out 3" spacing="0"/>
+        </process>
+      </operator>
+      <operator activated="true" class="write_csv" compatibility="7.0.001" expanded="true" height="82" name="train_known_cst_CSV" width="90" x="782" y="34">
+        <parameter key="csv_file" value="/Users/ariera/Dropbox/ariera/UniMannheim/Data Mining II/FSS2016/99. Project/week3/all_features_splited/dm2_train_sample_known_customer.csv"/>
+        <parameter key="column_separator" value=";"/>
+        <parameter key="write_attribute_names" value="true"/>
+        <parameter key="quote_nominal_values" value="true"/>
+        <parameter key="format_date_attributes" value="true"/>
+        <parameter key="append_to_file" value="false"/>
+        <parameter key="encoding" value="SYSTEM"/>
+      </operator>
+      <operator activated="true" class="write_csv" compatibility="7.0.001" expanded="true" height="82" name="test_known_cst_CSV" width="90" x="782" y="136">
+        <parameter key="csv_file" value="/Users/ariera/Dropbox/ariera/UniMannheim/Data Mining II/FSS2016/99. Project/week3/all_features_splited/dm2_test_kwown_customers.csv"/>
+        <parameter key="column_separator" value=";"/>
+        <parameter key="write_attribute_names" value="true"/>
+        <parameter key="quote_nominal_values" value="true"/>
+        <parameter key="format_date_attributes" value="true"/>
+        <parameter key="append_to_file" value="false"/>
+        <parameter key="encoding" value="SYSTEM"/>
+      </operator>
+      <operator activated="true" class="write_csv" compatibility="7.0.001" expanded="true" height="82" name="test_giveaways_CSV" width="90" x="782" y="238">
+        <parameter key="csv_file" value="/Users/ariera/Dropbox/ariera/UniMannheim/Data Mining II/FSS2016/99. Project/week3/all_features_splited/test_giveaways.csv"/>
+        <parameter key="column_separator" value=";"/>
+        <parameter key="write_attribute_names" value="true"/>
+        <parameter key="quote_nominal_values" value="true"/>
+        <parameter key="format_date_attributes" value="true"/>
+        <parameter key="append_to_file" value="false"/>
+        <parameter key="encoding" value="SYSTEM"/>
+      </operator>
+      <connect from_op="read train" from_port="output" to_op="preprocess" to_port="in 1"/>
+      <connect from_op="preprocess" from_port="out 1" to_op="giveaways selector" to_port="in 1"/>
+      <connect from_op="giveaways selector" from_port="out 1" to_op="Training" to_port="input"/>
+      <connect from_op="Training" from_port="output 1" to_op="Known customers" to_port="in 1"/>
+      <connect from_op="Training" from_port="output 2" to_op="New customers" to_port="in 1"/>
+      <connect from_op="Training" from_port="output 3" to_op="Known customers" to_port="in 3"/>
+      <connect from_op="Training" from_port="output 4" to_op="New customers" to_port="in 3"/>
+      <connect from_op="read test" from_port="output" to_op="preprocess (2)" to_port="in 1"/>
+      <connect from_op="preprocess (2)" from_port="out 1" to_op="giveaways selector (2)" to_port="in 1"/>
+      <connect from_op="giveaways selector (2)" from_port="out 1" to_op="Test" to_port="input"/>
+      <connect from_op="giveaways selector (2)" from_port="out 2" to_op="test_giveaways_CSV" to_port="input"/>
+      <connect from_op="Test" from_port="output 1" to_op="Known customers" to_port="in 2"/>
+      <connect from_op="Test" from_port="output 2" to_op="New customers" to_port="in 2"/>
+      <connect from_op="Test" from_port="output 3" to_op="Known customers" to_port="in 4"/>
+      <connect from_op="Test" from_port="output 4" to_op="New customers" to_port="in 4"/>
+      <connect from_op="New customers" from_port="out 1" to_op="train_new_cst_CSV" to_port="input"/>
+      <connect from_op="New customers" from_port="out 2" to_op="test_new_cst_CSV" to_port="input"/>
+      <connect from_op="New customers" from_port="out 3" to_port="result 6"/>
+      <connect from_op="test_new_cst_CSV" from_port="through" to_port="result 5"/>
+      <connect from_op="train_new_cst_CSV" from_port="through" to_port="result 4"/>
+      <connect from_op="Known customers" from_port="out 1" to_op="train_known_cst_CSV" to_port="input"/>
+      <connect from_op="Known customers" from_port="out 2" to_op="test_known_cst_CSV" to_port="input"/>
+      <connect from_op="train_known_cst_CSV" from_port="through" to_port="result 1"/>
+      <connect from_op="test_known_cst_CSV" from_port="through" to_port="result 2"/>
+      <connect from_op="test_giveaways_CSV" from_port="through" to_port="result 3"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+      <portSpacing port="sink_result 3" spacing="0"/>
+      <portSpacing port="sink_result 4" spacing="0"/>
+      <portSpacing port="sink_result 5" spacing="0"/>
+      <portSpacing port="sink_result 6" spacing="0"/>
+      <portSpacing port="sink_result 7" spacing="0"/>
+    </process>
+  </operator>
+</process>
