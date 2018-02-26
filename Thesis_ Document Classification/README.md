@@ -1,5 +1,11 @@
 # thesis_documentclassification
-Document Classification
+
+Annotation-Light Text Classification of News Articles from the web
+
+Objectives:
+1. The goal was to exploit cheap and efficient heuristics in order to collect training data for building supervised text classifiers from very large amounts of text documents.
+2. The key object was to improve the performance of standard supervised methods by automatically harvesting high-quality labelled data from the web in a simple yet efficient fashion.  
+ 
 
 OverView: 
 
